@@ -1,0 +1,13 @@
+.admin-layout {
+    display: flex;
+}
+
+.admin-layout header,
+.admin-layout aside {
+    width: 200px;
+}
+
+.admin-layout main {
+    flex: 1;
+    padding: 20px;
+}
