@@ -1,5 +1,5 @@
 {
-  "name": "barrierfreeroad",
+  "name": "BarrierFreeRoad",
   "version": "1.0.0",
   "description": "SeSAC",
   "main": "index.js",
@@ -12,5 +12,8 @@
     "mysql"
   ],
   "author": "CHEONGSANDO (KIM, CHEONGSAN)",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
 }
