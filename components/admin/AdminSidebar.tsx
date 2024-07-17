@@ -7,7 +7,7 @@ export default function AdminSidebar() {
                         <a href="/admin" className="block p-2 hover:bg-gray-700 rounded">Dashboard</a>
                     </li>
                     <li className="mb-4">
-                        <a href="/admin/settings" className="block p-2 hover:bg-gray-700 rounded">Settings</a>
+                        <a href="/admin/apis" className="block p-2 hover:bg-gray-700 rounded">API 관리</a>
                     </li>
                     {/* Add more links as needed */}
                 </ul>
