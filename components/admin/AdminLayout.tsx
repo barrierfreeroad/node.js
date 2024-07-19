@@ -12,16 +12,16 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
             enableSystem
             disableTransitionOnChange
         >
-            <div className="flex h-screen bg-background text-foreground">
-                <AdminSidebar />
-                <div className="flex flex-col flex-1">
-                    <AdminHeader />
-                    <main className="p-4">
-                        {children}
-                    </main>
-                    <AdminFooter />
-                </div>
+            <div className="grid h-screen w-full pl-[56px] bg-background text-foreground">
+                <AdminSidebar/>
+                    <div className="flex flex-col">
+                        <AdminHeader/>
+                        <main className="p-4">
+                            {children}
+                        </main>
+                        <AdminFooter/>
+                    </div>
             </div>
         </ThemeProvider>
-    );
+);
 }
