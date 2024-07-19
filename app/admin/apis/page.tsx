@@ -2,7 +2,17 @@
 
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import AdminLayout from '../../../components/admin/AdminLayout';
+import AdminLayout from '@/components/admin/AdminLayout';
+import {
+    Table,
+    TableBody,
+    TableCaption,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
+} from "@/components/ui/table"
+import { Button } from "@/components/ui/button"
 
 export default function AdminApis() {
     const [apis, setApis] = useState([]);
@@ -40,41 +50,42 @@ export default function AdminApis() {
 
     return (
         <AdminLayout>
-            <div className="bg-background text-foreground p-4">
-                <h1 className="text-2xl font-bold mb-4">API 관리</h1>
-                <table className="min-w-full bg-white border">
-                    <thead>
-                    <tr>
-                        <th className="py-2 px-4 border-b">API 이름</th>
-                        <th className="py-2 px-4 border-b">API URL</th>
-                        <th className="py-2 px-4 border-b">마지막 요청 날짜</th>
-                        <th className="py-2 px-4 border-b">상태</th>
-                        <th className="py-2 px-4 border-b">요청</th>
-                    </tr>
-                    </thead>
-                    <tbody>
+            <h1 className="text-2xl font-bold mb-4">API 관리</h1>
+            <Table>
+                <TableCaption>API 관리</TableCaption>
+                <TableHeader>
+                    <TableRow>
+                        <TableHead>API 이름</TableHead>
+                        <TableHead>API URL</TableHead>
+                        <TableHead>마지막 요청 날짜</TableHead>
+                        <TableHead>상태</TableHead>
+                        <TableHead>요청</TableHead>
+                    </TableRow>
+                </TableHeader>
+                <TableBody>
                     {apis.map((api) => (
-                        <tr key={api.id}>
-                            <td className="py-2 px-4 border-b">{api.api_name}</td>
-                            <td className="py-2 px-4 border-b">{api.api_url}</td>
-                            <td className="py-2 px-4 border-b">{new Date(api.last_requested).toLocaleString()}</td>
-                            <td className={`py-2 px-4 border-b ${api.last_status === 'Up' ? 'text-green-500' : 'text-red-500'}`}>
+                        <TableRow key={api.id}>
+                            <TableCell>{api.api_name}</TableCell>
+                            <TableCell>{api.api_url}</TableCell>
+                            <TableCell>
+                                {new Date(api.last_requested).toLocaleString()}
+                            </TableCell>
+                            <TableCell className={`${api.last_status === 'Up' ? 'text-green-500' : 'text-red-500'}`}>
                                 {api.last_status}
-                            </td>
-                            <td className="py-2 px-4 border-b">
-                                <button
+                            </TableCell>
+                            <TableCell>
+                                <Button
                                     className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 disabled:bg-gray-400"
                                     onClick={() => requestApi(api.id)}
                                     disabled={loading}
                                 >
                                     요청
-                                </button>
-                            </td>
-                        </tr>
+                                </Button>
+                            </TableCell>
+                        </TableRow>
                     ))}
-                    </tbody>
-                </table>
-            </div>
+                </TableBody>
+            </Table>
         </AdminLayout>
     );
 }
