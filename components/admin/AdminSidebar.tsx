@@ -1,12 +1,12 @@
 import {
     Code2,
-    LifeBuoy,
     Settings2,
     SquareTerminal,
     SquareUser,
     Triangle,
 } from "lucide-react"
 
+import { ModeToggle } from "@/components/admin/theme-toggle";
 import { Button } from "@/components/ui/button"
 import {
     Tooltip,
@@ -78,22 +78,8 @@ export default function AdminSidebar() {
                 </TooltipProvider>
             </nav>
             <nav className="mt-auto grid gap-1 p-2">
+                < ModeToggle />
                 <TooltipProvider>
-                    <Tooltip>
-                        <TooltipTrigger asChild>
-                            <Button
-                                variant="ghost"
-                                size="icon"
-                                className="mt-auto rounded-lg"
-                                aria-label="Help"
-                            >
-                                <LifeBuoy className="size-5"/>
-                            </Button>
-                        </TooltipTrigger>
-                        <TooltipContent side="right" sideOffset={5}>
-                            Help
-                        </TooltipContent>
-                    </Tooltip>
                     <Tooltip>
                         <TooltipTrigger asChild>
                             <Button
