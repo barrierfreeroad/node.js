@@ -40,7 +40,7 @@ export default function AdminApis() {
 
     return (
         <AdminLayout>
-            <div className="p-4">
+            <div className="bg-background text-foreground p-4">
                 <h1 className="text-2xl font-bold mb-4">API 관리</h1>
                 <table className="min-w-full bg-white border">
                     <thead>
