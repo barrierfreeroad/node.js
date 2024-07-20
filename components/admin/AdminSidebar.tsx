@@ -1,102 +1,80 @@
 import {
+    CircleGauge,
     Code2,
-    Settings2,
-    SquareTerminal,
-    SquareUser,
-    Triangle,
+    Map,
+    TrendingUp,
+    BusFront,
+    Users2,
+    Navigation,
 } from "lucide-react"
 
-import { ModeToggle } from "@/components/admin/theme-toggle";
-import { Button } from "@/components/ui/button"
-import {
-    Tooltip,
-    TooltipContent,
-    TooltipProvider,
-    TooltipTrigger,
-} from "@/components/ui/tooltip"
+import * as React from "react";
+import { cn } from "@/lib/utils";
 
+import { Nav } from "./nav"
+import { ModeToggle } from "./theme-toggle"
+import { Separator } from "@/components/ui/separator"
+import { ResizablePanel } from "@/components/ui/resizable";
 
-export default function AdminSidebar() {
+interface SidebarProps {
+    defaultSize: number | 265
+    collapsedSize: number
+    isCollapsed: boolean
+    setIsCollapsed: (collapsed: boolean) => void
+}
+
+export default function AdminSidebar({
+    defaultSize,
+    collapsedSize,
+}: SidebarProps) {
+    const defaultCollapsed = false
+    const [isCollapsed, setIsCollapsed] = React.useState(defaultCollapsed)
+
     return (
-        <aside className="inset-y fixed  left-0 z-20 flex h-full flex-col border-r">
-            <div className="border-b p-2">
-                <Button variant="outline" size="icon" aria-label="Home">
-                    <Triangle className="size-5 fill-foreground"/>
-                </Button>
+        <ResizablePanel
+            defaultSize={defaultSize}
+            collapsedSize={collapsedSize}
+            collapsible={true}
+            minSize={15}
+            maxSize={20}
+            onCollapse={(collapsed: any) => {
+                setIsCollapsed(collapsed)
+                document.cookie = `react-resizable-panels:collapsed=${JSON.stringify(
+                    collapsed
+                )}`
+            }}
+            className={cn(
+                isCollapsed &&
+                "min-w-[50px] transition-all duration-300 ease-in-out"
+            )}
+        >
+            <div
+                className={cn(
+                    "flex h-[52px] items-center justify-center",
+                    isCollapsed ? "h-[52px]" : "px-2"
+                )}
+            >
+                <ModeToggle isCollapsed={isCollapsed}/>
             </div>
-            <nav className="grid gap-1 p-2">
-                <TooltipProvider>
-                    <Tooltip>
-                        <TooltipTrigger asChild>
-                            <Button
-                                variant="ghost"
-                                size="icon"
-                                className="rounded-lg bg-muted"
-                                aria-label="Dashboard"
-                            >
-                                <a href="/admin">
-                                    <SquareTerminal className="size-5"/>
-                                </a>
-                            </Button>
-                        </TooltipTrigger>
-                        <TooltipContent side="right" sideOffset={5}>
-                            Dashboard
-                        </TooltipContent>
-                    </Tooltip>
-                    <Tooltip>
-                        <TooltipTrigger asChild>
-                            <Button
-                                variant="ghost"
-                                size="icon"
-                                className="rounded-lg"
-                                aria-label="API"
-                            >
-                                <a href="/admin/apis">
-                                    <Code2 className="size-5"/>
-                                </a>
-                            </Button>
-                        </TooltipTrigger>
-                        <TooltipContent side="right" sideOffset={5}>
-                            API
-                        </TooltipContent>
-                    </Tooltip>
-                    <Tooltip>
-                        <TooltipTrigger asChild>
-                            <Button
-                                variant="ghost"
-                                size="icon"
-                                className="rounded-lg"
-                                aria-label="Settings"
-                            >
-                                <Settings2 className="size-5"/>
-                            </Button>
-                        </TooltipTrigger>
-                        <TooltipContent side="right" sideOffset={5}>
-                            Settings
-                        </TooltipContent>
-                    </Tooltip>
-                </TooltipProvider>
-            </nav>
-            <nav className="mt-auto grid gap-1 p-2">
-                < ModeToggle />
-                <TooltipProvider>
-                    <Tooltip>
-                        <TooltipTrigger asChild>
-                            <Button
-                                variant="ghost"
-                                size="icon"
-                                className="mt-auto rounded-lg"
-                                aria-label="Account"
-                            >
-                                <SquareUser className="size-5"/>
-                            </Button>
-                        </TooltipTrigger>
-                        <TooltipContent side="right" sideOffset={5}>
-                            Account
-                        </TooltipContent>
-                    </Tooltip>
-                </TooltipProvider>
-            </nav>
-        </aside>
+            <Separator/>
+            <Nav
+                isCollapsed={isCollapsed}
+                links={[
+                    {title: "대시보드", label: "128", icon: CircleGauge, variant: "default"},
+                    {title: "API 연계", label: "9", icon: Code2, variant: "ghost"},
+                    {title: "교통안전지도", label: "", icon: Map, variant: "ghost"},
+                    {title: "교통안전통계", label: "23", icon: TrendingUp, variant: "ghost"},
+                    {title: "대중교통정보", label: "", icon: BusFront, variant: "ghost"},
+                ]}
+            />
+            <Separator/>
+            <Nav
+                isCollapsed={isCollapsed}
+                links={[
+                    {title: "고객조회", label: "972", icon: Users2, variant: "ghost"},
+                    {title: "이동안전지도", label: "342", icon: Navigation, variant: "ghost"},
+                ]}
+            />
+        </ResizablePanel>
     );
 }
